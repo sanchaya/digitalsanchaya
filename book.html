@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Page</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="js/jquery-3.6.0.js"></script>
+    <style>
+
+        body{
+            margin-top: 20px;
+        }
+
+        #main .error {
+            display: none;
+        }
+        #main.error .error{
+            display: block;
+        }
+        #main.error .success{
+            display: none;
+        }
+
+        .row {
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .row > :first-child{
+            padding: 5px;
+            box-sizing: border-box;
+            height: 100%;
+            background-color: black;
+        }
+
+        .row > :last-child{
+            padding: 0px 5px;
+        }
+
+        .row > :first-child > img {
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+
+        span.book-key{
+            text-align: center;
+            display: block;
+            padding: 5px;
+            border-radius: 5px;
+            color: white;
+            text-transform: capitalize;
+            width: 12ch;
+            margin: 10px auto;
+        }
+
+        span.book-value{
+            text-align: justify;
+            display: block;
+            margin-left: 15px;
+        }
+
+        span.book-value:last-child{
+            margin-left:0px;
+        }
+
+        .more-option{
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .no-change-wraper{
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main" class="container">
+        <div class="error">
+          <div class="alert alert-danger">
+              <strong>Error!</strong> Something went wrong!
+          </div>
+        </div>
+        <div class="success">
+           <div class="row">
+               <div class="col-lg-3 col-md-4 col-sm-5 col-xs-6">
+                    <img src="" alt="Book Image">          
+               </div>
+               <div class="col-lg-9 col-md-8 col-sm-7 col-xs-6">
+                   <div class="no-change-wraper">
+                        <div class="wraper">
+                            <!-- <span class="book-key bg-primary">key</span>
+                            <span class="book-value text-secondary">value</span> -->
+                        </div>
+                        <div class="more-option">
+                            <a href="" role="button" class="btn btn-outline-success" aria-pressed="true">Author</a>
+                            <a href="" role="button" class="btn btn-outline-success" aria-pressed="true">Book</a>
+                        </div>
+                    </div>
+                   </div>
+           </div>
+        </div>
+    </div>
+    <script>
+        // bookData stores book data of the current book
+        var bookData = JSON.parse(window.sessionStorage.getItem('book'));
+        
+        // removing session storage of book
+        //window.sessionStorage.removeItem('book')
+
+        // if bookData null 
+        if(!bookData){
+            $('#main').addClass('error')
+        }
+
+        function initialize(){
+            // setting image from bookData
+            $('.row > :first-child > img').prop('src', bookData['cover'])
+            
+
+            // appending key value from json
+            let visibleKeys = ['title', 'author', 'publisher', 'level', 'info']
+
+            let appendingData = ""
+
+            for(let i=0; i<visibleKeys.length; i++){
+                let currKey = visibleKeys[i]
+                if(bookData[currKey]){
+                    appendingData += '<span class="book-key bg-primary">'+currKey+'</span><span class="book-value text-secondary">'+bookData[currKey]+'</span>'
+                }
+            }
+            $('.success .wraper').html(appendingData)
+
+            // book and author hyperlink
+            $('.more-option > :first-child').prop('href', bookData['authorUrl'])
+            $('.more-option > :last-child').prop('href', bookData['url'])
+            
+        }
+
+        initialize();
+    </script>
+</body>
+</html>

@@ -7,10 +7,40 @@
     <title>Book Page</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <script src="js/jquery-3.6.0.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <style>
 
-        body{
-            margin-top: 20px;
+        html {
+            position: relative;
+        }
+
+        nav {
+            box-shadow: 8px 0px 10px 0px;
+        }
+
+        #pdf-baner {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 1200;
+        }
+
+        #pdf-baner button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+        #pdf-baner iframe{
+            width: 90%;
+            height: 80%;
+            margin: 10% auto;
+            display: block;
+        }
+
+        #main{
+            margin: 20px auto;
         }
 
         #main .error {
@@ -80,6 +110,33 @@
     </style>
 </head>
 <body>
+    <!-- BANER FOR PDF USING INTERNET ARCHIEVE -->
+    <div id="pdf-baner">
+        <button class="btn btn-danger"><span class="glyphicon glyphicon-star"></span></button>
+        <iframe src="https://www.archive.org/stream/archana0000vidv?ui=embed"></iframe>
+    </div>
+    <!-- BANER FOR PDF USING INTERNET ARCHIEVE end-->
+
+    <nav class="navbar sticky-top navbar-expand-sm navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="./img/logo_sanchaya.png" height="40px" class="d-inline-block align-top" alt="sanchaya">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/book.html">Book</a>
+                </li>
+            </div>
+        </div>  
+    </nav>
+
     <div id="main" class="container">
         <div class="error">
           <div class="alert alert-danger">
@@ -143,6 +200,11 @@
         }
 
         initialize();
+
+        // collaps
+        $('.navbar-toggler').click(function(){
+            $('#navbarSupportedContent').collapse("toggle")
+        })
     </script>
 </body>
 </html>

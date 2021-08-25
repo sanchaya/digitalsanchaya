@@ -81,13 +81,12 @@
         }
 
         span.book-key{
-            text-align: center;
+            text-align: left;
+            font-weight: bold;
+            font-size: large;
             display: block;
             padding: 5px;
-            border-radius: 5px;
-            color: white;
             text-transform: capitalize;
-            width: 12ch;
             margin: 10px auto;
         }
 
@@ -95,10 +94,6 @@
             text-align: justify;
             display: block;
             margin-left: 15px;
-        }
-
-        span.book-value:last-child{
-            margin-left:0px;
         }
 
         .more-option{
@@ -194,14 +189,15 @@
             for(let i=0; i<visibleKeys.length; i++){
                 let currKey = visibleKeys[i]
                 if(bookData[currKey]){
-                    appendingData += '<span class="book-key bg-primary">'+currKey+'</span><span class="book-value text-secondary">'+bookData[currKey]+'</span>'
+                    appendingData += '<span class="book-key">'+currKey+'</span><span class="book-value text-secondary">'+bookData[currKey]+'</span>'
                 }
             }
             $('.success .wraper').html(appendingData)
 
             // book and author hyperlink
             $('.more-option > :first-child').prop('href', bookData['authorUrl'])
-            const BookFrame = "https://www.archive.org/stream/"+bookData['identifier']+"?ui=embed"
+            // const BookFrame = "https://www.archive.org/stream/"+bookData['identifier']+"?ui=embed"
+            const BookFrame = "https://archive.org/details/"+bookData['identifier']+"/page/1/mode/2up?view=theater"
             $('#pdf-baner iframe').prop('src', BookFrame)
             $('.more-option > :last-child').click(function(){
                 toggler('#pdf-baner', 'open')

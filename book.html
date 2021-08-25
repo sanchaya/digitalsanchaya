@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Page</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
     <script src="js/jquery-3.6.0.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <style>
@@ -19,11 +20,16 @@
         }
 
         #pdf-baner {
-            position: absolute;
+            position: fixed;
             height: 100%;
             width: 100%;
             background-color: rgba(0, 0, 0, 0.85);
             z-index: 1200;
+            display: none;
+        }
+
+        #pdf-baner.open {
+            display: block;
         }
 
         #pdf-baner button {
@@ -33,9 +39,8 @@
         }
 
         #pdf-baner iframe{
-            width: 90%;
-            height: 80%;
-            margin: 10% auto;
+            width: 100%;
+            height: 100%;
             display: block;
         }
 
@@ -112,8 +117,8 @@
 <body>
     <!-- BANER FOR PDF USING INTERNET ARCHIEVE -->
     <div id="pdf-baner">
-        <button class="btn btn-danger"><span class="glyphicon glyphicon-star"></span></button>
-        <iframe src="https://www.archive.org/stream/archana0000vidv?ui=embed"></iframe>
+        <button class="btn btn-danger"><i class="fas fa-times"></i></button>
+        <iframe src=""></iframe>
     </div>
     <!-- BANER FOR PDF USING INTERNET ARCHIEVE end-->
 
@@ -156,7 +161,8 @@
                         </div>
                         <div class="more-option">
                             <a href="" role="button" class="btn btn-outline-success" aria-pressed="true">Author</a>
-                            <a href="" role="button" class="btn btn-outline-success" aria-pressed="true">Book</a>
+                            <!-- <a href="" role="button" class="btn btn-outline-success" aria-pressed="true">Book</a> -->
+                            <button class="btn btn-outline-success">Book</button>
                         </div>
                     </div>
                    </div>
@@ -195,7 +201,11 @@
 
             // book and author hyperlink
             $('.more-option > :first-child').prop('href', bookData['authorUrl'])
-            $('.more-option > :last-child').prop('href', bookData['url'])
+            const BookFrame = "https://www.archive.org/stream/"+bookData['identifier']+"?ui=embed"
+            $('#pdf-baner iframe').prop('src', BookFrame)
+            $('.more-option > :last-child').click(function(){
+                toggler('#pdf-baner', 'open')
+            })
             
         }
 
@@ -205,6 +215,19 @@
         $('.navbar-toggler').click(function(){
             $('#navbarSupportedContent').collapse("toggle")
         })
+
+        // close button - iframe internet archive
+        $('#pdf-baner button').click(function(){
+            toggler('#pdf-baner', 'open')
+        })
+
+        // toggler method
+        function toggler(element, toggle){
+            if($(element).hasClass(toggle))
+                $(element).removeClass(toggle)
+            else
+                $(element).addClass(toggle)
+        }
     </script>
 </body>
 </html>
